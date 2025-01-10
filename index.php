@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>">
+        <link rel="icon" href="images/PlanCraft Logo1.png" type="icon">
+        <title>PlanCraft Jo</title>
+    </head>
+    <body>
+        <header id="header_part">
+            <div class="logo">
+                <a class="link-wrapper" href="index.php">
+                    <img class="logo-img-header" id="h_logo" src="images/PlanCraft Long Logo.png" alt="PlanCraft Long Logo">
+                </a> 
+            </div>
+
+            <div id="s_header">
+                <?php
+
+                    if (session_status() == PHP_SESSION_NONE) {
+                        session_start();
+                    }
+                    if (!isset($_SESSION['user'])) {
+                        echo '
+                            <a class="eventbtn" href="login.php">Add Your Event</a>
+                            <a href="login.php" class="eventbtn">Log In</a>
+                            <a href="signup.php" class="eventbtn">Sign Up</a>
+                        ';
+                    } else {
+                            echo '
+                                <a class="eventbtn" href="create_event.php">Add Your Event</a>
+                                <a href="user_profile.php" style="width: 15%;">
+                                    <img id="pf-img" src="images/profile.png">
+                                </a>
+                            ';
+                    }
+
+                ?>
+                <nav class="nav_class">
+                    <div class="dropdown">
+                        <img class="menu-icon" src="images/Menu Image.png" alt="Menu Icon" width="50"/>
+                        <div class="dropdown-content">
+                            <a href="Events.html">Events</a>
+                            <a href="About.html">About Us</a>
+                            <a href="Contact.html">Contact Us</a>
+                            <a href="index.php">Homepage</a>
+                            <?php
+                                if (isset($_SESSION['user'])) {
+                                    echo '<a href="logout.php">Log out</a>';
+                                }
+                            ?>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <!-- headline section -->
+            <section id="headline">
+                <div class="headline-content">
+                    <h1>Planning Community Events in Jordan</h1>
+                    <p class="home_paragraph">Welcome to your hub for discovering, organizing, and participating in community events across Jordan. Our platform connects individuals, organizations, and volunteers to foster collaboration and engagement through a diverse range of activities.</p>
+                    
+                    <p class="home_paragraph">Whether you're looking to participate in local clean-up drives, cultural festivals, educational workshops, or social gatherings, we provide a comprehensive listing of events that cater to all interests and age groups.</p>
+                    <p class="home_paragraph">Join us in building a vibrant community where everyone can contribute to positive change and enjoy meaningful experiences together. With just a few clicks, you can explore upcoming events, register for those that resonate with you, or even create your own events to invite others to join.</p>
+                    <p class="home_paragraph">Together, we can make a difference in our neighborhoods and strengthen the bonds within our communities.</p>
+
+                    <a href="events.php" class="cta-button">Explore Events</a>
+                </div>
+            </section>
+
+            <section id="events">
+                <h2>Featured Events</h2>
+                <div class="events-grid-main">
+                    <?php
+                        $servername = "localhost";
+                        $username = "root";
+                        $password = "";
+                        $dbname = "webpage design project";
+                        
+                        $conn = new mysqli($servername, $username, $password, $dbname);
+                        
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        }
+                        
+                        $sql = "SELECT * FROM events";
+                        $result = $conn->query($sql);
+
+                        
+                        if ($result->num_rows > 0) {
+                            for ($x = 0; $x < 2; $x++) {
+                                if ($row = $result->fetch_assoc()) {
+
+                                    $host_id = $row['host_id'];
+                                    $sqlusers = "SELECT username FROM credentials WHERE ID = '$host_id'";
+                                    $resultusers = $conn->query($sqlusers);
+                                    $host = $resultusers->fetch_assoc();
+                                    $host_name = $host['username'];
+
+                                    $image = "";
+                                    if ($row['img'] != NULL && $row['img'] != "") {
+                                        $image = '<img src="' . $row['img'] . '" alt="' . $row['name'] . '" class="event-image">';
+                                    }
+                                    echo '
+                                        <div class="event-box-main">
+                                            <a class="link-wrapper" href="event.php?id=' . $row['ID'] . '">'
+                                                . $image . 
+                                                '<div class="event-content">
+                                                    <div class="event-name">' . $row['name'] . '</div>
+                                                    <div class="event-location">By: ' . $host_name . '</div>
+                                                    <div class="event-location">Location: ' . $row['place'] . '</div>
+                                                    <div class="event-datetime">Date: ' . $row['date'] . '</div>
+                                                    <div class="event-datetime">Capacity: ' . $row['current_cap'] . '/' . $row['capacity'] . '</div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    ';
+                                }
+                            }
+                        } else {
+                            echo "<h1>No events found.</h1>";
+                        }
+                    ?>
+
+
+
+                </div>
+            </section>
+
+            <section id="how-it-works">
+                <h2>How It Works</h2>
+                <div class="how-it-works-container">
+                    <a href="events.php" class="link-wrapper">
+                        <div class="how-it-card">
+                            <img src="images/discover_icon.png" alt="Discover Icon" class="icon" />
+                            <h3>Discover</h3>
+                            <p>Browse through our list of community events that suit your interests.</p>
+                        </div>
+                    </a>
+                    <a href="signup.php" class="link-wrapper">
+                        <div class="how-it-card">
+                            <img src="images/register_icon.png" alt="Register Icon" class="icon" />
+                            <h3>Register</h3>
+                            <p>Sign up for events that interest you with just a few clicks.</p>
+                        </div>
+                    </a>
+                    <a href="create_event.php" class="link-wrapper">
+                        <div class="how-it-card">
+                            <img src="images/create_icon.png" alt="Create Icon" class="icon" />
+                            <h3>Create</h3>
+                            <p>Organize your own events and invite others to join in!</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Jordan's Public Holidays</a></li>
+                        <li><a href="#">Security & Privacy Policy</a></li>
+                        <li><a href="#">Feedback</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                    </ul>
+                </div>
+        
+                <div class="footer-section">
+                    <h3>Contact Support</h3>
+                    <p>Email: support@PlanCraft.jo</p>
+                    <p>Phone: +962 7 91800000</p>
+                </div>
+        
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <ul class="social-media">
+                        <li>
+                            <a href="https://www.facebook.com/" target="_blank">
+                                <img src="images/facebook_icon.png" alt="Facebook" class="social-icon" />
+                                Facebook
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://x.com/?lang=en" target="_blank">
+                                <img src="images/twitter_icon.png" alt="Twitter" class="social-icon" />
+                                Twitter
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/" target="_blank">
+                                <img src="images/instagram_icon.png" alt="Instagram" class="social-icon" />
+                                Instagram
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        
+            <div class="footer-bottom">
+                <p>&copy; 2025 PlanCraft. All rights reserved.</p>
+            </div>
+        </footer>
+    </body>
+</html>
