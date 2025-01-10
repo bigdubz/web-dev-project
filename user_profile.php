@@ -3,6 +3,7 @@
     <head>
         <link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>">
         <link rel="icon" href="images/PlanCraft Logo1.png" type="icon">
+        <script src="script.js?v=<?php echo filemtime('style.css'); ?>"></script>
         <?php 
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -23,21 +24,21 @@
             </div>
 
             <div id="s_header">
+                <a href="events.php" class="eventbtn">Explore Events</a>
                 <?php
-
                     if (session_status() == PHP_SESSION_NONE) {
                         session_start();
                     }
                     if (!isset($_SESSION['user'])) {
                         echo '
-                            <a class="eventbtn" href="login.php">Add Your Event</a>
+                            <a href="login.php" class="eventbtn">Create Your Own Event</a>
                             <a href="login.php" class="eventbtn">Log In</a>
                             <a href="signup.php" class="eventbtn">Sign Up</a>
                         ';
                     } else {
                             echo '
-                                <a class="eventbtn" href="create_event.php">Add Your Event</a>
-                                <a href="user_profile.php" style="width: 15%;">
+                                <a class="eventbtn" href="create_event.php">Create Your Own Event</a>
+                                <a id="link-logo" class="link-wrapper" href="user_profile.php">
                                     <img id="pf-img" src="images/profile.png">
                                 </a>
                             ';
@@ -68,7 +69,30 @@
             <?php echo '<p>Name: ' . htmlspecialchars($_SESSION['user']['first']) . ' ' . htmlspecialchars($_SESSION['user']['last']) ?>
             <?php echo '<p>Username: ' . htmlspecialchars($_SESSION['user']['username']) . '</p>' ?>
             <?php echo '<p>Email: ' . htmlspecialchars($_SESSION['user']['email']) . '</p>' ?>
-            <a href="change-password.php" class="btn">Change Password</a>
+            <button onclick="show_change_password_form()" class="btn">Change Password</button>
+            <button onclick="show_change_email_form()" class="btn">Change Email</button>
+
+            <div id="change-password" hidden class="login-form">
+                <form method="post" action="change_password.php">
+                    <label for="old-pwd">Old password</label>
+                    <input id="old-pwd" required name="old" type="password" title="Enter your old password" placeholder="Enter your old password">
+                    <label for="change-pwd">New password</label>
+                    <input id="change-pwd" required name="new" type="password" pattern=".{4,20}$" title="Must contain at least 4 characters and at most 20 characters" onkeyup="validate_change_password()" placeholder="Enter your new password">
+                    <label for="conf-change-pwd">Confirm password</label>
+                    <input id="conf-change-pwd" required type="password" pattern=".{4,20}$" title="Passwords must match" onkeyup="validate_change_password()" placeholder="Confirm your new password">
+                    <p hidden id="change-pwd-conf-warning">Passwords must match!</p>
+                    <button disabled id="submit-change-pwd" type="submit" class="btn">Change Password</button>
+                </form>
+            </div>
+
+            <div id="change-email" hidden class="login-form">
+                <form method="post" action="change_email.php">
+                    <label for="change-email">New email</label>
+                    <input id="change-email" required name="new" type="text" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}" title="Must be a valid email" placeholder="Enter your new email">
+                    <button type="submit" class="btn">Change Email</button>
+                </form>
+            </div>
+
             <h2>Events I've hosted</h2>
             <div class="events-grid-profile">
                 <?php
@@ -84,7 +108,6 @@
                     if ($conn->connect_error) {
                         die("Connection failed: " . $conn->connect_error);
                     }
-                    
                     $sql = "SELECT * FROM events WHERE host_id = '$user_id'";
                     $result = $conn->query($sql);
                     

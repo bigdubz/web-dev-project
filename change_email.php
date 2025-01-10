@@ -3,7 +3,34 @@
     <head>
         <link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>">
         <link rel="icon" href="images/PlanCraft Logo1.png" type="icon">
-        <title>Log in</title>
+        <title>Change Password</title>
+        <?php
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            if (!isset($_SESSION['user'])) {
+                header("Location: login.php");
+            }
+            $done = FALSE;
+            if (isset($_POST['new'])) {
+                $new_email = $_POST['new'];
+                $servername = "localhost";
+                $dbname = "webpage design project";
+                $conn = new mysqli($servername, "root", "", $dbname);
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+                $user_id = $_SESSION['user']['id'];
+                $sql = "UPDATE credentials SET email = '$new_email' WHERE ID = '$user_id'";
+                if ($conn->query($sql) === TRUE) {
+                   $done = TRUE;
+                   $_SESSION['user']['email'] = $new_email;
+                } else {
+                    die("An error has occurred.");
+                }
+                $conn->close();
+            }
+        ?>
     </head>
     <body>
         <header id="header_part">
@@ -54,60 +81,13 @@
             </div>
         </header>
 
-        <h1 class="page-header">Log in to your account</h1>
-
-        <div class="login-form">
-            <form method="get" action="login.php">
-                <?php
-                    if (session_status() == PHP_SESSION_NONE) {
-                        session_start();
-                    }
-                    if (isset($_SESSION['user'])) {
-                        header("Location: index.php");
-                    }
-                    else {
-                        echo '
-                            <label for="username">Username</label>
-                            <input type="text" id="username" name="username" placeholder="Enter your username" required>
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="pwd" placeholder="Enter your password" required>
-                            <button type="submit" class="btn">Log In</button>
-                        ';
-                    }
-                    if (isset($_GET['username']) && isset($_GET['pwd'])) {
-                        $username = $_GET['username'];
-                        $pwd = $_GET['pwd'];
-
-                        $servername = "localhost";
-                        $dbname = "webpage design project";
-                        $conn = new mysqli($servername, "root", "", $dbname);
-                        if ($conn->connect_error) {
-                            die("Connection failed: " . $conn->connect_error);
-                        }
-                        
-                        $sql = "SELECT * FROM credentials WHERE username = '$username' AND password = '$pwd'";
-                        $result = $conn->query($sql);
-
-                        if ($result->num_rows == 1) {
-                            $row = $result->fetch_assoc();
-                            $_SESSION['user'] = [
-                                'id' => htmlspecialchars($row['ID']),
-                                'first' => htmlspecialchars($row['first_name']),
-                                'last' => htmlspecialchars($row['last_name']),
-                                'username' => $username,
-                                'email' => htmlspecialchars($row['email']),
-                                'events' => htmlspecialchars($row['events'])
-                            ];
-                            session_regenerate_id(true);
-                            header("Location: index.php");
-                        } else {
-                            echo "<br><p>Incorrect username or password</p>";
-                        }
-                        $conn->close();
-                    }
-                ?>
-            </form>
-        </div>
+        <?php 
+            if ($done) {
+                echo '<h1 class="page-header">Your email has been successfully changed!</h1>';
+            } else {
+                echo '<h1 class="page-header">Something went wrong.</h1>';
+            }
+        ?>
 
         <footer>
             <div class="footer-container">

@@ -3,7 +3,7 @@
     <head>
         <link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>">
         <link rel="icon" href="images/PlanCraft Logo1.png" type="icon">
-        <script src="script.js"></script>
+        <script src="script.js?v=<?php echo filemtime('style.css'); ?>"></script>
         <title>Sign Up</title>
     </head>
     <body>
@@ -15,21 +15,21 @@
             </div>
 
             <div id="s_header">
+                <a href="events.php" class="eventbtn">Explore Events</a>
                 <?php
-
                     if (session_status() == PHP_SESSION_NONE) {
                         session_start();
                     }
                     if (!isset($_SESSION['user'])) {
                         echo '
-                            <a class="eventbtn" href="login.php">Add Your Event</a>
+                            <a href="login.php" class="eventbtn">Create Your Own Event</a>
                             <a href="login.php" class="eventbtn">Log In</a>
                             <a href="signup.php" class="eventbtn">Sign Up</a>
                         ';
                     } else {
                             echo '
-                                <a class="eventbtn" href="create_event.php">Add Your Event</a>
-                                <a href="user_profile.php" style="width: 15%;">
+                                <a class="eventbtn" href="create_event.php">Create Your Own Event</a>
+                                <a id="link-logo" class="link-wrapper" href="user_profile.php">
                                     <img id="pf-img" src="images/profile.png">
                                 </a>
                             ';

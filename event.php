@@ -50,24 +50,26 @@
             </div>
 
             <div id="s_header">
+                <a href="events.php" class="eventbtn">Explore Events</a>
                 <?php
                     if (session_status() == PHP_SESSION_NONE) {
                         session_start();
                     }
                     if (!isset($_SESSION['user'])) {
                         echo '
-                            <a class="eventbtn" href="login.php">Add Your Event</a>
+                            <a href="login.php" class="eventbtn">Create Your Own Event</a>
                             <a href="login.php" class="eventbtn">Log In</a>
                             <a href="signup.php" class="eventbtn">Sign Up</a>
                         ';
                     } else {
-                        echo '
-                            <a class="eventbtn" href="create_event.php">Add Your Event</a>
-                            <a href="user_profile.php" style="width: 15%;">
-                                <img id="pf-img" src="images/profile.png">
-                            </a>
-                        ';
+                            echo '
+                                <a class="eventbtn" href="create_event.php">Create Your Own Event</a>
+                                <a id="link-logo" class="link-wrapper" href="user_profile.php">
+                                    <img id="pf-img" src="images/profile.png">
+                                </a>
+                            ';
                     }
+
                 ?>
                 <nav class="nav_class">
                     <div class="dropdown">
@@ -147,7 +149,7 @@
                     <button hidden id="sign-up-confirm" class="signup-button" onclick="window.location.href='signup_to_event.php?id=<?php echo $event_id ?>'">
                         Click again to confirm sign up
                     </button>
-                    <button id="withdraw-button" <?php if (!$already_signed_up) echo 'hidden'; ?> class="signup-button withdraw" onclick="show_withdraw_confirmation_button()">
+                    <button id="withdraw-button" <?php if (!$already_signed_up || $finished) echo 'hidden'; ?> class="signup-button withdraw" onclick="show_withdraw_confirmation_button()">
                         Withdraw From Event
                     </button>
                     <button hidden id="withdraw-confirm" <?php if (!$already_signed_up) echo 'hidden'; ?> class="signup-button withdraw" onclick="window.location.href='withdraw.php?id=<?php echo $event_id ?>'">
