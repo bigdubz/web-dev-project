@@ -89,6 +89,28 @@
         </header>
 
         <div class="event-page-box">
+            <?php 
+                $current_time = time();
+                $event_time = $event['date'];
+                $event_time = strtotime($event_time);
+                $finished = FALSE;
+                if ($current_time >= $event_time) {
+                    $finished = TRUE;
+                }
+
+                $disabled = $event['current_cap'] >= $event['capacity'];
+                $guest = !isset($_SESSION['user']);
+                $already_signed_up = FALSE;
+                if (!$guest) {
+                    $user_events = explode(',', $_SESSION['user']['events']);
+                    foreach ($user_events as $user_event_id) {
+                        if ($user_event_id == $event_id) {
+                            $already_signed_up = TRUE;
+                            break;
+                        }
+                    }
+                }
+            ?>
             <div class="event-page-image">
                 <img class="event-page-img" src="<?php echo $event['img'] ?>" alt="<?php echo $event_name ?>">
             </div>
@@ -102,23 +124,34 @@
                 </p>
                 <p><strong>Location:</strong> <?php echo $event['place'] ?></p>
                 <p><strong>Date & Time:</strong> <?php echo $event['date'] ?></p>
-                <p><strong>Capacity:</strong> <?php echo $event['current_cap'] . '/' . $event['capacity']?></p>
+                <p><strong><?php if ($finished) echo 'Attended:'; else echo 'Capacity:' ?></strong> <?php echo $event['current_cap'] . '/' . $event['capacity']?></p>
                 <p class="event-page-description">
                     <strong>Description:</strong> <?php echo $event['description'] ?>
                 </p>
                 <div class="event-actions">
-                    <?php $disabled = $event['current_cap'] == $event['capacity'] ?>
-                    <button id="sign-up-button" <?php if ($disabled) { echo 'disabled';}?> class="signup-button" onclick="show_confirmation_button()">
+                    <button id="sign-up-button" <?php if ($disabled || $guest || $already_signed_up || $finished) { echo 'disabled'; }?> class="signup-button" onclick="show_sign_up_confirmation_button()">
                         <?php 
-                            if (!$disabled) {
-                                echo 'Sign Up for Event';
+                            if ($finished) {
+                                echo 'This event has ended';
+                            } else if ($already_signed_up) {
+                                echo 'Already signed up for event';
+                            } else if ($disabled) {
+                                echo 'This event is currently at full capacity';
+                            } else if ($guest) {
+                                echo 'Log in to sign up for this event';
                             } else {
-                                echo 'Full';
+                                echo 'Sign up for this event';
                             }
                         ?>
                     </button>
                     <button hidden id="sign-up-confirm" class="signup-button" onclick="window.location.href='signup_to_event.php?id=<?php echo $event_id ?>'">
                         Click again to confirm sign up
+                    </button>
+                    <button id="withdraw-button" <?php if (!$already_signed_up) echo 'hidden'; ?> class="signup-button withdraw" onclick="show_withdraw_confirmation_button()">
+                        Withdraw From Event
+                    </button>
+                    <button hidden id="withdraw-confirm" <?php if (!$already_signed_up) echo 'hidden'; ?> class="signup-button withdraw" onclick="window.location.href='withdraw.php?id=<?php echo $event_id ?>'">
+                        Click again to confirm withdraw
                     </button>
                 </div>
             </div>

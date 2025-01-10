@@ -86,7 +86,7 @@
                             die("Connection failed: " . $conn->connect_error);
                         }
                         
-                        $sql = "SELECT ID, username, first_name, last_name, email, password FROM credentials WHERE username = '$username' AND password = '$pwd'";
+                        $sql = "SELECT * FROM credentials WHERE username = '$username' AND password = '$pwd'";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows == 1) {
@@ -96,7 +96,8 @@
                                 'first' => htmlspecialchars($row['first_name']),
                                 'last' => htmlspecialchars($row['last_name']),
                                 'username' => $username,
-                                'email' => htmlspecialchars($row['email'])
+                                'email' => htmlspecialchars($row['email']),
+                                'events' => htmlspecialchars($row['events'])
                             ];
                             session_regenerate_id(true);
                             header("Location: index.php");

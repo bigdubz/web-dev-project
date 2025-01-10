@@ -26,7 +26,7 @@
         } else {
             die("404 event not found");
         }
-        $new_cap = $event['current_cap'] + 1;
+        $new_cap = $event['current_cap'] - 1;
         $sql = "UPDATE events SET current_cap = '$new_cap' WHERE ID = '$event_id'";
 
         if ($conn->query($sql) === FALSE) {
@@ -38,7 +38,15 @@
         if ($result->num_rows > 0) {
             $user_events = $result->fetch_assoc()['events'];
         }
-        $new_events = $user_events ? $user_events . ',' . $event_id : $event_id;
+        $user_events = explode(',', $user_events);
+        $new_events = [];
+        foreach ($user_events as $user_event) {
+            if ($user_event != $event_id) {
+                $new_events[] = $user_event;
+            }
+        }
+
+        $new_events = implode(',', $new_events);
         $sql = "UPDATE credentials SET events = '$new_events' WHERE ID = '$user_id'";
 
         if ($conn->query($sql) === TRUE) {

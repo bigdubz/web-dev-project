@@ -112,7 +112,7 @@
                         } else {
                             $sql = "INSERT INTO credentials (username, first_name, last_name, email, password) VALUES ('$username', '$first_name', '$last_name', '$email', '$password')";
                             if ($conn->query($sql) === TRUE) {
-                                $sql = "SELECT ID, email FROM credentials WHERE username = '$username'";
+                                $sql = "SELECT * FROM credentials WHERE username = '$username'";
                                 $result = $conn->query($sql);
                                 if ($result->num_rows == 1) {
                                     $row = $result->fetch_assoc();
@@ -121,7 +121,8 @@
                                         'first' => $first_name,
                                         'last' => $last_name,
                                         'username' => $username,
-                                        'email' => htmlspecialchars($row['email'])
+                                        'email' => htmlspecialchars($row['email']),
+                                        'events' => $row['events'] != NULL ? htmlspecialchars($row['events']) : ""
                                     ];
                                 }
                                 session_regenerate_id(true);

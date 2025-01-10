@@ -10,7 +10,7 @@
 .logo {
     display: flex;
     align-items: center;
-    width: 40%;
+    width: 25%;
 }
 
 .logo-img-header {
@@ -61,6 +61,10 @@
     position: relative; 
 }
 
+#link-logo {
+    width: 10%;
+}
+
 #pf-img {
     width: 100%;
     vertical-align: top;
@@ -68,7 +72,6 @@
 }
 
 #pf-img:hover {
-    width: 100%;
     vertical-align: top;
     transform: scale(1.05);
 }
@@ -188,10 +191,12 @@ body {
 }
 
 #how-it-works {
-    margin: 20px;
+    width: 97%;
+    margin: 20px 0px 0px 20px;
     background-color: orange;
-    padding: 20px;
+    padding: 1% 0px 1% 1%;
     border-radius: 10px;
+    margin-bottom: 50px;
 }
 
 #how-it-works h2 {
@@ -200,9 +205,12 @@ body {
 }
 
 .how-it-works-container {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15%, 250px));
+    justify-content: center;
+    gap: 250px;
     flex-wrap: wrap;
+    margin-bottom: 50px;
 }
 
 .how-it-card {
@@ -213,6 +221,7 @@ body {
     margin: 10px;
     text-align: center;
     width: 250px;
+    height: 170px;
     transition: transform 0.2s;
 }
 
@@ -471,7 +480,7 @@ footer {
 
 .events-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 15%);
+    grid-template-columns: repeat(auto-fit, minmax(250px ,15%));
     justify-content: center;
     gap: 20px;
     padding: 20px;
@@ -480,7 +489,7 @@ footer {
 
 .events-grid-profile {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 15%);
+    grid-template-columns: repeat(auto-fit, minmax(250px ,15%));
     justify-content: center;
     gap: 20px;
     padding: 20px;
@@ -488,11 +497,12 @@ footer {
 
 .events-grid-main {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 15%);
+    grid-template-columns: repeat(auto-fit, minmax(250px ,15%));
     justify-content: center;
     gap: 20px;
     padding: 20px;
     background-color: #333;
+    margin-bottom: 50px;
 }
 
 .event-box {
@@ -701,6 +711,11 @@ footer {
     text-align: center;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.signup-button.withdraw:hover {
+    background-color: red;
+    color: white;
 }
 
 .signup-button:hover {

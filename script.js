@@ -12,9 +12,16 @@ function validate() {
     }
 }
 
-function show_confirmation_button() {
-    var sign_up_button = document.getElementById("sign-up-button");
-    var confirm_button = document.getElementById("sign-up-confirm");
-    sign_up_button.setAttribute("hidden", "hidden");
+function show_sign_up_confirmation_button() {
+    var button = document.getElementById('sign-up-button');
+    var confirm_button = document.getElementById('sign-up-confirm');
+    button.setAttribute("hidden", "hidden");
+    confirm_button.removeAttribute("hidden");
+}
+
+function show_withdraw_confirmation_button() {
+    var button = document.getElementById('withdraw-button');
+    var confirm_button = document.getElementById('withdraw-confirm');
+    button.setAttribute("hidden", "hidden");
     confirm_button.removeAttribute("hidden");
 }
