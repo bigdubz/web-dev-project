@@ -43,9 +43,7 @@
                     <div class="dropdown">
                         <img class="menu-icon" src="images/Menu Image.png" alt="Menu Icon" width="50"/>
                         <div class="dropdown-content">
-                            <a href="Events.html">Events</a>
-                            <a href="About.html">About Us</a>
-                            <a href="Contact.html">Contact Us</a>
+                            <a href="events.php">Events</a>
                             <a href="index.php">Homepage</a>
                             <a href="holidays.php">Jordan's holidays</a>
                             <?php

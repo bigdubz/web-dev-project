@@ -54,9 +54,6 @@
             <div id="s_header">
                 <a href="events.php" class="eventbtn">Explore Events</a>
                 <?php
-                    if (session_status() == PHP_SESSION_NONE) {
-                        session_start();
-                    }
                     if (!isset($_SESSION['user'])) {
                         echo '
                             <a href="login.php" class="eventbtn">Create Your Own Event</a>
@@ -77,9 +74,7 @@
                     <div class="dropdown">
                         <img class="menu-icon" src="images/Menu Image.png" alt="Menu Icon" width="50"/>
                         <div class="dropdown-content">
-                            <a href="Events.html">Events</a>
-                            <a href="About.html">About Us</a>
-                            <a href="Contact.html">Contact Us</a>
+                            <a href="events.php">Events</a>
                             <a href="index.php">Homepage</a>
                             <a href="holidays.php">Jordan's holidays</a>
                             <?php
