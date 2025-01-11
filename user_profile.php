@@ -3,7 +3,7 @@
     <head>
         <link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>">
         <link rel="icon" href="images/PlanCraft Logo1.png" type="icon">
-        <script src="script.js?v=<?php echo filemtime('style.css'); ?>"></script>
+        <script src="script.js?v=<?php echo filemtime('script.js'); ?>"></script>
         <?php 
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();

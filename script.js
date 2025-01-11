@@ -40,12 +40,18 @@ function show_withdraw_confirmation_button() {
     confirm_button.removeAttribute("hidden");
 }
 
+function show_delete_confirmation_button() {
+    var button = document.getElementById('delete-event-button');
+    var confirm_button = document.getElementById('delete-event-confirm');
+    button.setAttribute("hidden", "hidden");
+    confirm_button.removeAttribute("hidden");
+}
+
 function show_change_password_form() {
     var div = document.getElementById("change-password");
     var div2 = document.getElementById("change-email");
     div.toggleAttribute("hidden");
     div2.setAttribute("hidden", "hidden");
-
 }
 
 function show_change_email_form() {

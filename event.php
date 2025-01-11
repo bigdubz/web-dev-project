@@ -3,7 +3,7 @@
     <head>
         <link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>">
         <link rel="icon" href="images/PlanCraft Logo1.png" type="icon">
-        <script src="script.js?v=<?php echo filemtime('style.css'); ?>"></script>
+        <script src="script.js?v=<?php echo filemtime('script.js'); ?>"></script>
         <?php
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -30,8 +30,8 @@
             } else {
                 die("404 event not found");
             }
-            $user_id = $event['host_id'];
-            $sql = "SELECT username FROM credentials WHERE ID = '$user_id'";
+            $host_id = $event['host_id'];
+            $sql = "SELECT username FROM credentials WHERE ID = '$host_id'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 $user = $result->fetch_assoc();
@@ -52,9 +52,6 @@
             <div id="s_header">
                 <a href="events.php" class="eventbtn">Explore Events</a>
                 <?php
-                    if (session_status() == PHP_SESSION_NONE) {
-                        session_start();
-                    }
                     if (!isset($_SESSION['user'])) {
                         echo '
                             <a href="login.php" class="eventbtn">Create Your Own Event</a>
@@ -99,6 +96,7 @@
 
                 $disabled = $event['current_cap'] >= $event['capacity'];
                 $guest = !isset($_SESSION['user']);
+                $is_host = FALSE;
                 $already_signed_up = FALSE;
                 if (!$guest) {
                     $user_events = explode(',', $_SESSION['user']['events']);
@@ -108,6 +106,8 @@
                             break;
                         }
                     }
+
+                    $is_host = $_SESSION['user']['id'] == $host_id;
                 }
                 $can_sign_up_after_log_in = !$guest || $disabled || $finished
             ?>
@@ -118,7 +118,7 @@
                 <h1 class="event-page-title"><?php echo $event_name ?></h1>
                 <p>
                     <strong>Host:</strong> 
-                    <button class="host-button" onclick="window.location.href='profile.php?id=<?php echo $user_id ?>';">
+                    <button class="host-button" onclick="window.location.href='profile.php?id=<?php echo $host_id ?>';">
                         <?php echo $user['username']?>
                     </button>
                 </p>
@@ -132,7 +132,7 @@
                     <button <?php if ($can_sign_up_after_log_in) echo 'hidden' ?> class="signup-button" onclick="window.location.href='login.php'">
                         Log in to sign up for this event
                     </button>
-                    <button <?php if (!$can_sign_up_after_log_in) echo 'hidden' ?> id="sign-up-button" <?php if ($disabled || $already_signed_up || $finished) { echo 'disabled'; }?> class="signup-button" onclick="show_sign_up_confirmation_button()">
+                    <button <?php if (!$can_sign_up_after_log_in || $is_host) echo 'hidden' ?> id="sign-up-button" <?php if ($disabled || $already_signed_up || $finished) { echo 'disabled'; }?> class="signup-button" onclick="show_sign_up_confirmation_button()">
                         <?php 
                             if ($finished) {
                                 echo 'This event has ended';
@@ -153,6 +153,12 @@
                     </button>
                     <button hidden id="withdraw-confirm" <?php if (!$already_signed_up) echo 'hidden'; ?> class="signup-button withdraw" onclick="window.location.href='withdraw.php?id=<?php echo $event_id ?>'">
                         Click again to confirm withdraw
+                    </button>
+                    <button id="delete-event-button" <?php if (!$is_host) echo 'hidden'; ?> class="signup-button withdraw" onclick="show_delete_confirmation_button()">
+                        Delete event
+                    </button>
+                    <button hidden id="delete-event-confirm" <?php if (!$is_host) echo 'hidden'; ?> class="signup-button withdraw" onclick="window.location.href='delete_event.php?id=<?php echo $event_id ?>'">
+                        Click again to confirm delete
                     </button>
                 </div>
             </div>

@@ -3,7 +3,7 @@
     <head>
         <link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>">
         <link rel="icon" href="images/PlanCraft Logo1.png" type="icon">
-        <script src="script.js?v=<?php echo filemtime('style.css'); ?>"></script>
+        <script src="script.js?v=<?php echo filemtime('script.js'); ?>"></script>
         <title>Sign Up</title>
     </head>
     <body>
@@ -83,7 +83,7 @@
                 <input id="confpwd" required type="password" pattern=".{4,20}$" title="Passwords must match" onkeyup="validate()" placeholder="Confirm your password">
 
                 <p id="pwd-conf-warning" hidden>Passwords must match!</p>
-                <button disabled id="submit" type="submit" class="btn">Create Account!</button>
+                <button disabled id="submit" type="submit" class="btn">Create Account</button>
 
                 <?php
                     if (isset($_SESSION['user'])) {

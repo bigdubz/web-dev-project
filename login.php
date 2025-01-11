@@ -101,11 +101,12 @@
                             session_regenerate_id(true);
                             header("Location: index.php");
                         } else {
-                            echo "<br><p>Incorrect username or password</p>";
+                            echo "<br><p style='color:red;text-align:center'>Incorrect username or password</p>";
                         }
                         $conn->close();
                     }
                 ?>
+                <p style='text-align: center'>Don't have an account? <a href='signup.php' style="all:unset;cursor:pointer;color:green;text-decoration:underline";>Sign up now!</a></p>
             </form>
         </div>
 
