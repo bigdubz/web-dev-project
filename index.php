@@ -1,3 +1,9 @@
+<!--
+    add ability to delete events by hosts 
+    make it so that they can't delete past events
+    fix header responsiveness
+-->
+
 <!DOCTYPE html>
 <html lang="en">
     <head>

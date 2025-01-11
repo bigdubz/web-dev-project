@@ -95,10 +95,7 @@
                 $current_time = time();
                 $event_time = $event['date'];
                 $event_time = strtotime($event_time);
-                $finished = FALSE;
-                if ($current_time >= $event_time) {
-                    $finished = TRUE;
-                }
+                $finished = $current_time >= $event_time;
 
                 $disabled = $event['current_cap'] >= $event['capacity'];
                 $guest = !isset($_SESSION['user']);
@@ -112,6 +109,7 @@
                         }
                     }
                 }
+                $can_sign_up_after_log_in = !$guest || $disabled || $finished
             ?>
             <div class="event-page-image">
                 <img class="event-page-img" src="<?php echo $event['img'] ?>" alt="<?php echo $event_name ?>">
@@ -131,7 +129,10 @@
                     <strong>Description:</strong> <?php echo $event['description'] ?>
                 </p>
                 <div class="event-actions">
-                    <button id="sign-up-button" <?php if ($disabled || $guest || $already_signed_up || $finished) { echo 'disabled'; }?> class="signup-button" onclick="show_sign_up_confirmation_button()">
+                    <button <?php if ($can_sign_up_after_log_in) echo 'hidden' ?> class="signup-button" onclick="window.location.href='login.php'">
+                        Log in to sign up for this event
+                    </button>
+                    <button <?php if (!$can_sign_up_after_log_in) echo 'hidden' ?> id="sign-up-button" <?php if ($disabled || $already_signed_up || $finished) { echo 'disabled'; }?> class="signup-button" onclick="show_sign_up_confirmation_button()">
                         <?php 
                             if ($finished) {
                                 echo 'This event has ended';
@@ -139,8 +140,6 @@
                                 echo 'Already signed up for event';
                             } else if ($disabled) {
                                 echo 'This event is currently at full capacity';
-                            } else if ($guest) {
-                                echo 'Log in to sign up for this event';
                             } else {
                                 echo 'Sign up for this event';
                             }

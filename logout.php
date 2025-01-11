@@ -3,6 +3,10 @@
         session_start();
         session_unset();
         session_destroy();
-        header("Location: index.php");
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            header("Location: " . $_SERVER['HTTP_REFERER']);
+        } else {
+            header("Location: index.php");
+        }
     }
 ?>
