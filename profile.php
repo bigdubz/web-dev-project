@@ -70,6 +70,7 @@
                             <a href="About.html">About Us</a>
                             <a href="Contact.html">Contact Us</a>
                             <a href="index.php">Homepage</a>
+                            <a href="holidays.php">Jordan's holidays</a>
                             <?php
                                 if (isset($_SESSION['user'])) {
                                     echo '<a href="logout.php">Log out</a>';
@@ -82,7 +83,6 @@
         </header>
 
         <div class="profile-box">
-                <p class="profile-info">Username: <?php echo $user['username'] ?></p>
                 <p class="profile-info">Contact <?php echo $user['first_name'] . ' ' . $user['last_name'] . ': ' . $user['email'] ?></p>
                 <h1> Events hosted by <?php echo $user['first_name'] ?></h1>
             <div class="events-grid-profile">
@@ -112,6 +112,7 @@
                     } else {
                         echo "No events found.";
                     }
+                    $conn->close();
                 ?>
             </div>
         </div>

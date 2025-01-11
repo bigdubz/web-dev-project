@@ -3,7 +3,7 @@
     <head>
         <link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>">
         <link rel="icon" href="images/PlanCraft Logo1.png" type="icon">
-        <title>Change Password</title>
+        <title>Change Email</title>
         <?php
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
@@ -70,6 +70,7 @@
                             <a href="About.html">About Us</a>
                             <a href="Contact.html">Contact Us</a>
                             <a href="index.php">Homepage</a>
+                            <a href="holidays.php">Jordan's holidays</a>
                             <?php
                                 if (isset($_SESSION['user'])) {
                                     echo '<a href="logout.php">Log out</a>';

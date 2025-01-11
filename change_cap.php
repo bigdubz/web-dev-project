@@ -18,6 +18,8 @@
             die("Connection failed: " . $conn->connect_error);
         }
 
+        $new = $_POST['new'];
+
         $sql = "SELECT * FROM events WHERE ID = '$event_id'";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
@@ -29,11 +31,15 @@
         if ($user_id != $event['host_id']) {
             header("Location: login.php");
         } else {
-            $sql = "DELETE FROM events WHERE ID = '$event_id'";
-            if ($conn->query($sql) === TRUE) {
-                header("Location: user_profile.php");
+            if ($new >= $event['current_cap']) {
+                $sql = "UPDATE events SET capacity = '$new' WHERE ID = '$event_id'";
+                if ($conn->query($sql) === TRUE) {
+                    header("Location: event.php?id=" . $event_id);
+                } else {
+                    die("An error occurred while updating the event.");
+                }
             } else {
-                die("An error occurred while deleting the event.");
+                die("Cannot change capacity to less than the current capacity.");
             }
         }
         $conn->close();

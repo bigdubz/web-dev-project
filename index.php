@@ -1,6 +1,4 @@
 <!--
-    add ability to delete events by hosts 
-    make it so that they can't delete past events
     fix header responsiveness
 -->
 
@@ -49,6 +47,7 @@
                             <a href="About.html">About Us</a>
                             <a href="Contact.html">Contact Us</a>
                             <a href="index.php">Homepage</a>
+                            <a href="holidays.php">Jordan's holidays</a>
                             <?php
                                 if (isset($_SESSION['user'])) {
                                     echo '<a href="logout.php">Log out</a>';
@@ -125,12 +124,10 @@
                                 }
                             }
                         } else {
-                            echo "<h1>No events found.</h1>";
+                            echo "<h3 style='text-align: center;color:white'>No events found.</h3>";
                         }
+                        $conn->close();
                     ?>
-
-
-
                 </div>
             </section>
 

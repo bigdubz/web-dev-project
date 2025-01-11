@@ -39,6 +39,7 @@
                 die("Something went wrong.");
             }
             echo '<title>' . $event_name . '</title>';
+            $conn->close();
         ?>
     </head>
     <body>
@@ -76,6 +77,7 @@
                             <a href="About.html">About Us</a>
                             <a href="Contact.html">Contact Us</a>
                             <a href="index.php">Homepage</a>
+                            <a href="holidays.php">Jordan's holidays</a>
                             <?php
                                 if (isset($_SESSION['user'])) {
                                     echo '<a href="logout.php">Log out</a>';
@@ -122,12 +124,90 @@
                         <?php echo $user['username']?>
                     </button>
                 </p>
-                <p><strong>Location:</strong> <?php echo $event['place'] ?></p>
-                <p><strong>Date & Time:</strong> <?php echo $event['date'] ?></p>
-                <p><strong><?php if ($finished) echo 'Attended:'; else echo 'Capacity:' ?></strong> <?php echo $event['current_cap'] . '/' . $event['capacity']?></p>
+                <p>
+                    <strong>Location:</strong> <?php echo $event['place'] ?>
+                    <?php 
+                        if (!$finished && $is_host) {
+                            echo '
+                                <button class="host-button" onclick="show_change_loc_form()">
+                                    Change
+                                </button>
+                            ';
+                        }
+                    ?>
+                </p>
+
+                <div id="change-loc" hidden class="login-form">
+                    <form method="post" action="change_loc.php?id=<?php echo $event_id ?>">
+                        <label for="change-location">New location</label>
+                        <input id="change-location" required name="new" type="text" title="Must be a valid location" placeholder="Enter new location">
+                        <button type="submit" class="btn">Change Location</button>
+                    </form>
+                </div>
+
+                <p>
+                    <strong>Date & Time:</strong> <?php echo $event['date'] ?>
+                    <?php 
+                        if (!$finished && $is_host) {
+                            echo '
+                                <button class="host-button" onclick="show_change_date_form()">
+                                    Change
+                                </button>
+                            ';
+                        }
+                    ?>
+                </p>
+
+                <div id="change-date" hidden class="login-form">
+                    <form method="post" action="change_date.php?id=<?php echo $event_id ?>">
+                        <label for="change-datee">New date and time</label>
+                        <input id="change-datee" required name="new" type="datetime-local" placeholder="Enter new date and time">
+                        <button type="submit" class="btn">Change Date And Time</button>
+                    </form>
+                </div>
+
+                <p>
+                    <strong><?php if ($finished) echo 'Attended:'; else echo 'Capacity:' ?></strong> <?php echo $event['current_cap'] . '/' . $event['capacity']?>
+                    <?php 
+                        if (!$finished && $is_host) {
+                            echo '
+                                <button class="host-button" onclick="show_change_cap_form()">
+                                    Change
+                                </button>
+                            ';
+                        }
+                    ?>
+                </p>
+
+                <div id="change-cap" hidden class="login-form">
+                    <form method="post" action="change_cap.php?id=<?php echo $event_id ?>">
+                        <label for="change-capa">New capacity</label>
+                        <input id="change-capa" required name="new" type="number" min="5" max="1000" title="Must be between 5 and 1000 (inclusive)" placeholder="Enter new capacity">
+                        <button type="submit" class="btn">Change Capacity</button>
+                    </form>
+                </div>
+
                 <p class="event-page-description">
                     <strong>Description:</strong> <?php echo $event['description'] ?>
+                    <?php 
+                        if (!$finished && $is_host) {
+                            echo '
+                                <button class="host-button" onclick="show_change_desc_form()">
+                                    Change
+                                </button>
+                            ';
+                        }
+                    ?>
                 </p>
+
+                <div id="change-des" hidden class="login-form">
+                    <form method="post" action="change_desc.php?id=<?php echo $event_id ?>">
+                        <label for="change-desc">New description</label>
+                        <textarea id="change-desc" required name="new" placeholder="Enter new description"></textarea>
+                        <button type="submit" class="btn">Change Description</button>
+                    </form>
+                </div>
+
                 <div class="event-actions">
                     <button <?php if ($can_sign_up_after_log_in) echo 'hidden' ?> class="signup-button" onclick="window.location.href='login.php'">
                         Log in to sign up for this event
@@ -154,11 +234,23 @@
                     <button hidden id="withdraw-confirm" <?php if (!$already_signed_up) echo 'hidden'; ?> class="signup-button withdraw" onclick="window.location.href='withdraw.php?id=<?php echo $event_id ?>'">
                         Click again to confirm withdraw
                     </button>
-                    <button id="delete-event-button" <?php if (!$is_host) echo 'hidden'; ?> class="signup-button withdraw" onclick="show_delete_confirmation_button()">
-                        Delete event
+                    <button id="delete-event-button" <?php if ($finished) echo 'disabled' ?> <?php if (!$is_host) echo 'hidden'; ?> class="signup-button withdraw" onclick="show_delete_confirmation_button()">
+                        <?php
+                            if ($finished) {
+                                echo 'Event ended, cannot delete';
+                            } else {
+                                echo 'Delete event';
+                            }
+                        ?>
                     </button>
                     <button hidden id="delete-event-confirm" <?php if (!$is_host) echo 'hidden'; ?> class="signup-button withdraw" onclick="window.location.href='delete_event.php?id=<?php echo $event_id ?>'">
-                        Click again to confirm delete
+                        <?php
+                            if ($finished) {
+                                echo 'Cannot delete an event that has already finished';
+                            } else {
+                                echo 'Click again to confirm delete'; 
+                            } 
+                        ?>
                     </button>
                 </div>
             </div>

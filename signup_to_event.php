@@ -40,23 +40,29 @@
             } else {
                 die("404 event not found");
             }
-            $new_cap = $event['current_cap'] + 1;
-            $sql = "UPDATE events SET current_cap = '$new_cap' WHERE ID = '$event_id'";
+            $has_space = $event['current_cap'] < $event['capacity'];
+            if ($has_space) {
+                $new_cap = $event['current_cap'] + 1;
+                $sql = "UPDATE events SET current_cap = '$new_cap' WHERE ID = '$event_id'";
 
-            if ($conn->query($sql) === FALSE) {
-                die("Error occurred");
-            }
-            $new_events = $user_events_ ? $user_events_ . ',' . $event_id : $event_id;
-            $sql = "UPDATE credentials SET events = '$new_events' WHERE ID = '$user_id'";
+                if ($conn->query($sql) === FALSE) {
+                    die("Error occurred");
+                }
+                $new_events = $user_events_ ? $user_events_ . ',' . $event_id : $event_id;
+                $sql = "UPDATE credentials SET events = '$new_events' WHERE ID = '$user_id'";
 
-            if ($conn->query($sql) === TRUE) {
-                $_SESSION['user']['events'] = $new_events;
-                header("Location: event.php?id=" . $event_id);
+                if ($conn->query($sql) === TRUE) {
+                    $_SESSION['user']['events'] = $new_events;
+                    header("Location: event.php?id=" . $event_id);
+                } else {
+                    die("Error occurred");
+                }
             } else {
-                die("Error occurred");
+                header("Location: event.php?id=" . $event_id);
             }
         } else {
             header("Location: event.php?id=" . $event_id);
         }
+        $conn->close();
     }
 ?>

@@ -81,6 +81,7 @@
                             <a href="About.html">About Us</a>
                             <a href="Contact.html">Contact Us</a>
                             <a href="index.php">Homepage</a>
+                            <a href="holidays.php">Jordan's holidays</a>
                             <?php
                                 if (isset($_SESSION['user'])) {
                                     echo '<a href="logout.php">Log out</a>';

@@ -586,7 +586,7 @@ footer {
 
 .link-wrapper {
     all: unset;
-    cursor: grab;
+    cursor: pointer;
     display: block;
     text-decoration: none;
     height: 100%;
@@ -748,4 +748,97 @@ footer {
 .event-actions {
     margin-top: 20px;
     text-align: center;
+}
+
+/* ----------------------------- */
+
+#terms-of-use {
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#terms-of-use h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#terms-of-use h2 {
+    font-size: 1.8em;
+    margin-top: 30px;
+}
+
+#terms-of-use p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* ----------------------------- */
+
+#privacy-policy {
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#privacy-policy h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#privacy-policy h2 {
+    font-size: 1.8em;
+    margin-top: 30px;
+}
+
+#privacy-policy p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+#privacy-policy ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+#privacy-policy ul li {
+    margin-bottom: 10px;
+}
+
+/* ----------------------------- */
+
+#public-holidays {
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#public-holidays h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9;
 }

@@ -43,6 +43,7 @@
                             <a href="About.html">About Us</a>
                             <a href="Contact.html">Contact Us</a>
                             <a href="index.php">Homepage</a>
+                            <a href="holidays.php">Jordan's holidays</a>
                             <?php
                                 if (isset($_SESSION['user'])) {
                                     echo '<a href="logout.php">Log out</a>';
@@ -102,7 +103,11 @@
                         }
 
                         $targetFilePath = "";
-                        if (isset($_FILES["evimg"]) && $_FILES["evimg"]["error"] == 0) {
+                        $too_large = isset($_FILES["evimg"]) && $_FILES["evimg"]["error"] == 1;
+                        if ($too_large) {
+                            echo '<p>Error: Image file is too big</p>';
+                            $sql = "";
+                        } else if (isset($_FILES["evimg"]) && $_FILES["evimg"]["error"] == 0) {
                             $targetDir = "uploads/";
                             $fileName = basename($_FILES["evimg"]["name"]);
                             $targetFilePath = $targetDir . $fileName;
@@ -112,10 +117,8 @@
                             $sql = "INSERT INTO events (name, date, place, capacity, description, current_cap, host_id) VALUES ('$name', '$date', '$place', '$capacity', '$desc', 0, '$user_id')";
                         }
 
-                        if ($conn->query($sql) === TRUE) {
+                        if (!$too_large && $conn->query($sql) === TRUE) {
                             header("Location: user_profile.php");
-                        } else {
-                            echo "<p>Error: " . $sql . "<br>" . $conn->error . "</p>";
                         }
                         $conn->close();
                     }

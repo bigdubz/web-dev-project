@@ -60,3 +60,47 @@ function show_change_email_form() {
     div.toggleAttribute("hidden");
     div2.setAttribute("hidden", "hidden");
 }
+
+function show_change_loc_form() {
+    var div = document.getElementById("change-loc");
+    var div2 = document.getElementById("change-date");
+    var div3 = document.getElementById("change-cap");
+    var div4 = document.getElementById("change-des");
+    div.toggleAttribute("hidden");
+    div2.setAttribute("hidden", "hidden");
+    div3.setAttribute("hidden", "hidden");
+    div4.setAttribute("hidden", "hidden");
+}
+
+function show_change_date_form() {
+    var div = document.getElementById("change-date");
+    var div2 = document.getElementById("change-loc");
+    var div3 = document.getElementById("change-cap");
+    var div4 = document.getElementById("change-des");
+    div.toggleAttribute("hidden");
+    div2.setAttribute("hidden", "hidden");
+    div3.setAttribute("hidden", "hidden");
+    div4.setAttribute("hidden", "hidden");
+}
+
+function show_change_cap_form() {
+    var div = document.getElementById("change-cap");
+    var div2 = document.getElementById("change-loc");
+    var div3 = document.getElementById("change-date");
+    var div4 = document.getElementById("change-des");
+    div.toggleAttribute("hidden");
+    div2.setAttribute("hidden", "hidden");
+    div3.setAttribute("hidden", "hidden");
+    div4.setAttribute("hidden", "hidden");
+}
+
+function show_change_desc_form() {
+    var div = document.getElementById("change-des");
+    var div2 = document.getElementById("change-loc");
+    var div3 = document.getElementById("change-date");
+    var div4 = document.getElementById("change-cap");
+    div.toggleAttribute("hidden");
+    div2.setAttribute("hidden", "hidden");
+    div3.setAttribute("hidden", "hidden");
+    div4.setAttribute("hidden", "hidden");
+}
