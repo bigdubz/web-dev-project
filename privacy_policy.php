@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>">
-        <link rel="icon" href="images/PlanCraft Logo1.png" type="icon">
-        <title>Create Event</title>
+        <link rel="icon" href="PlanCraft Logo1.png" type="image/icon type">
+        <title>Security & Privacy Policy - PlanCraft Jo</title>
     </head>
     <body>
         <header id="header_part">
@@ -61,76 +61,60 @@
             </div>
         </header>
 
-        <h1 style="text-align: center;margin-top: 4%;">Create Event</h1>
-        <div class="login-form">
-            <form method="post" action="create_event.php" enctype="multipart/form-data">
+        <main>
+            <section id="privacy-policy">
+                <h1>Security & Privacy Policy</h1>
+                <p>Last updated: January 10, 2025</p>
 
-                <label for="name">Event Name</label>
-                <input id="name" required name="evname" type="text" pattern=".{3,1000}$" title="Must contain at least 3 characters and at most 1000 characters" placeholder="Enter the name of your event">
+                <h2>1. Introduction</h2>
+                <p>At PlanCraft Jo, we are committed to protecting your privacy and ensuring the security of your personal information. This policy outlines how we collect, use, and protect your data when you use our services.</p>
 
-                <label for="place">Event Location</label>
-                <input id="place" required name="place" type="text" pattern=".{3,1000}$" title="Must contain at least 3 characters and at most 1000 characters" placeholder="Enter the location">
+                <h2>2. Information We Collect</h2>
+                <p>We may collect personal information from you when you register for an account, create an event, or participate in community events. This information may include:</p>
+                <ul>
+                    <li>Name</li>
+                    <li>Email address</li>
+                    <li>Phone number</li>
+                    <li>Payment information if applicable</li>
+                    <li>Event participation details</li>
+                </ul>
 
-                <label for="date">Event Date</label>
-                <input id="date" required name="date" type="datetime-local">
+                <h2>3. How We Use Your Information</h2>
+                <p>Your information is used to:</p>
+                <ul>
+                    <li>Facilitate event registrations and communications.</li>
+                    <li>Improve our services and user experience.</li>
+                    <li>Send you updates and promotional materials (with your consent).</li>
+                    <li>Ensure compliance with legal obligations.</li>
+                </ul>
 
-                <label for="cap">Maximum Capacity</label>
-                <input id="cap" required name="cap" type="number" min="5" max="1000" title="Must be between 5 and 1000 (inclusive)" placeholder="Enter maximum capacity">
-                
-                <label for="desc">Description</label>
-                <textarea id="desc" name="desc" rows="4" cols="50" placeholder="Describe your event!"></textarea>
+                <h2>4. Data Security</h2>
+                <p>We implement a variety of security measures to maintain the safety of your personal information. These include:</p>
+                <ul>
+                    <li>Encryption of sensitive data during transmission.</li>
+                    <li>Regular security audits and vulnerability assessments.</li>
+                    <li>Access controls to limit who can view your personal information.</li>
+                </ul>
 
-                <label for="evimg">Event Photo</label>
-                <input id="evimg" name="evimg" type="file" accept=".png, .jpg, .jpeg">
+                <h2>5. Sharing Your Information</h2>
+                <p>We do not sell or rent your personal information to third parties. We may share your information with trusted partners who assist us in operating our website or conducting our business, as long as those parties agree to keep this information confidential.</p>
 
-                <button type="submit" class="btn">Create Event!</button>
+                <h2>6. Your Rights</h2>
+                <p>You have the right to:</p>
+                <ul>
+                    <li>Request access to the personal data we hold about you.</li>
+                    <li>Request correction of any inaccurate data.</li>
+                    <li>Request deletion of your personal data under certain circumstances.</li>
+                    <li>Withdraw consent for processing your data at any time.</li>
+                </ul>
 
-                <?php
-                    if (!isset($_SESSION['user'])) {
-                        header("Location: login.php");
-                    }
-                            
-                    if (isset($_POST['evname']) && isset($_POST['place']) && isset($_POST['date']) && isset($_POST['cap'])) {
-                        $name = str_replace("'", "\'", $_POST['evname']);
-                        $place = str_replace("'", "\'", $_POST['place']);
-                        $date = str_replace("'", "\'", $_POST['date']);
-                        $capacity = str_replace("'", "\'", $_POST['cap']);
-                        $desc = str_replace("'", "\'", $_POST['desc']);
+                <h2>7. Changes to This Policy</h2>
+                <p>We may update this Security & Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date. Your continued use of our services after any changes constitutes acceptance of the new policy.</p>
 
-                        $user_id = $_SESSION['user']['id'];
-
-                        $servername = "localhost";
-                        $dbname = "webpage design project";
-
-                        $conn = new mysqli($servername, "root", "", $dbname);
-
-                        if ($conn->connect_error) {
-                            die("Connection failed: " . $conn->connect_error);
-                        }
-
-                        $targetFilePath = "";
-                        $too_large = isset($_FILES["evimg"]) && $_FILES["evimg"]["error"] == 1;
-                        if ($too_large) {
-                            echo '<p>Error: Image file is too big</p>';
-                            $sql = "";
-                        } else if (isset($_FILES["evimg"]) && $_FILES["evimg"]["error"] == 0) {
-                            $targetDir = "uploads/";
-                            $fileName = basename($_FILES["evimg"]["name"]);
-                            $targetFilePath = $targetDir . $fileName;
-                            move_uploaded_file($_FILES["evimg"]["tmp_name"], $targetFilePath);
-                            $sql = "INSERT INTO events (name, date, place, capacity, description, current_cap, img, host_id) VALUES ('$name', '$date', '$place', '$capacity', '$desc', 0, '$targetFilePath', '$user_id')";
-                        } else {
-                            $sql = "INSERT INTO events (name, date, place, capacity, description, current_cap, host_id) VALUES ('$name', '$date', '$place', '$capacity', '$desc', 0, '$user_id')";
-                        }
-
-                        if (!$too_large && $conn->query($sql) === TRUE) {
-                            header("Location: user_profile.php");
-                        }
-                        $conn->close();
-                    }
-                ?>
-            </form>
-        </div>
+                <h2>8. Contact Us</h2>
+                <p>If you have any questions about this Security & Privacy Policy, please contact us at support@PlanCraft.jo.</p>
+            </section>
+        </main>
 
         <footer>
             <div class="footer-container">
@@ -142,13 +126,11 @@
                         <li><a href="terms_of_use.php">Terms of Use</a></li>
                     </ul>
                 </div>
-        
                 <div class="footer-section">
                     <h3>Contact Support</h3>
                     <p>Email: support@PlanCraft.jo</p>
                     <p>Phone: +962 7 91800000</p>
                 </div>
-        
                 <div class="footer-section">
                     <h3>Follow Us</h3>
                     <ul class="social-media">
@@ -173,7 +155,6 @@
                     </ul>
                 </div>
             </div>
-        
             <div class="footer-bottom">
                 <p>&copy; 2025 PlanCraft. All rights reserved.</p>
             </div>

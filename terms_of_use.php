@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <link rel="stylesheet" href="style.css?v=<?php echo filemtime('style.css'); ?>">
-        <link rel="icon" href="images/PlanCraft Logo1.png" type="icon">
-        <title>Create Event</title>
+        <link rel="icon" href="PlanCraft Logo1.png" type="image/icon type">
+        <title>Terms of Use - PlanCraft Jo</title>
     </head>
     <body>
         <header id="header_part">
@@ -61,76 +61,36 @@
             </div>
         </header>
 
-        <h1 style="text-align: center;margin-top: 4%;">Create Event</h1>
-        <div class="login-form">
-            <form method="post" action="create_event.php" enctype="multipart/form-data">
+        <main>
+            <section id="terms-of-use">
+                <h1>Terms of Use</h1>
+                <p>Last updated: January 10, 2025</p>
 
-                <label for="name">Event Name</label>
-                <input id="name" required name="evname" type="text" pattern=".{3,1000}$" title="Must contain at least 3 characters and at most 1000 characters" placeholder="Enter the name of your event">
+                <h2>1. Introduction</h2>
+                <p>Welcome to PlanCraft Jo! These Terms of Use govern your use of our website and services. By accessing or using our platform, you agree to comply with these terms.</p>
 
-                <label for="place">Event Location</label>
-                <input id="place" required name="place" type="text" pattern=".{3,1000}$" title="Must contain at least 3 characters and at most 1000 characters" placeholder="Enter the location">
+                <h2>2. Acceptance of Terms</h2>
+                <p>By using our services, you confirm that you accept these terms and that you agree to comply with them. If you do not agree with these terms, please refrain from using our services.</p>
 
-                <label for="date">Event Date</label>
-                <input id="date" required name="date" type="datetime-local">
+                <h2>3. Changes to Terms</h2>
+                <p>We may update these terms from time to time. Any changes will be posted on this page with an updated effective date. Your continued use of the services after any changes constitutes acceptance of the new terms.</p>
 
-                <label for="cap">Maximum Capacity</label>
-                <input id="cap" required name="cap" type="number" min="5" max="1000" title="Must be between 5 and 1000 (inclusive)" placeholder="Enter maximum capacity">
-                
-                <label for="desc">Description</label>
-                <textarea id="desc" name="desc" rows="4" cols="50" placeholder="Describe your event!"></textarea>
+                <h2>4. User Responsibilities</h2>
+                <p>You are responsible for ensuring that any information you provide is accurate and up-to-date. You agree not to use the platform for any unlawful or prohibited activities.</p>
 
-                <label for="evimg">Event Photo</label>
-                <input id="evimg" name="evimg" type="file" accept=".png, .jpg, .jpeg">
+                <h2>5. Intellectual Property Rights</h2>
+                <p>All content on this website, including text, graphics, logos, and images, is the property of PlanCraft Jo or its licensors and is protected by copyright and other intellectual property laws.</p>
 
-                <button type="submit" class="btn">Create Event!</button>
+                <h2>6. Limitation of Liability</h2>
+                <p>PlanCraft Jo shall not be liable for any indirect, incidental, or consequential damages arising from your use of our services.</p>
 
-                <?php
-                    if (!isset($_SESSION['user'])) {
-                        header("Location: login.php");
-                    }
-                            
-                    if (isset($_POST['evname']) && isset($_POST['place']) && isset($_POST['date']) && isset($_POST['cap'])) {
-                        $name = str_replace("'", "\'", $_POST['evname']);
-                        $place = str_replace("'", "\'", $_POST['place']);
-                        $date = str_replace("'", "\'", $_POST['date']);
-                        $capacity = str_replace("'", "\'", $_POST['cap']);
-                        $desc = str_replace("'", "\'", $_POST['desc']);
+                <h2>7. Governing Law</h2>
+                <p>These terms shall be governed by and construed in accordance with the laws of Jordan.</p>
 
-                        $user_id = $_SESSION['user']['id'];
-
-                        $servername = "localhost";
-                        $dbname = "webpage design project";
-
-                        $conn = new mysqli($servername, "root", "", $dbname);
-
-                        if ($conn->connect_error) {
-                            die("Connection failed: " . $conn->connect_error);
-                        }
-
-                        $targetFilePath = "";
-                        $too_large = isset($_FILES["evimg"]) && $_FILES["evimg"]["error"] == 1;
-                        if ($too_large) {
-                            echo '<p>Error: Image file is too big</p>';
-                            $sql = "";
-                        } else if (isset($_FILES["evimg"]) && $_FILES["evimg"]["error"] == 0) {
-                            $targetDir = "uploads/";
-                            $fileName = basename($_FILES["evimg"]["name"]);
-                            $targetFilePath = $targetDir . $fileName;
-                            move_uploaded_file($_FILES["evimg"]["tmp_name"], $targetFilePath);
-                            $sql = "INSERT INTO events (name, date, place, capacity, description, current_cap, img, host_id) VALUES ('$name', '$date', '$place', '$capacity', '$desc', 0, '$targetFilePath', '$user_id')";
-                        } else {
-                            $sql = "INSERT INTO events (name, date, place, capacity, description, current_cap, host_id) VALUES ('$name', '$date', '$place', '$capacity', '$desc', 0, '$user_id')";
-                        }
-
-                        if (!$too_large && $conn->query($sql) === TRUE) {
-                            header("Location: user_profile.php");
-                        }
-                        $conn->close();
-                    }
-                ?>
-            </form>
-        </div>
+                <h2>8. Contact Us</h2>
+                <p>If you have any questions about these Terms of Use, please contact us at support@PlanCraft.jo.</p>
+            </section>
+        </main>
 
         <footer>
             <div class="footer-container">
@@ -178,5 +138,7 @@
                 <p>&copy; 2025 PlanCraft. All rights reserved.</p>
             </div>
         </footer>
+
+        <script src="your_script.js"></script>
     </body>
 </html>

@@ -129,6 +129,8 @@
                     <h3>Resources</h3>
                     <ul>
                         <li><a href="holidays.php">Jordan's Public Holidays</a></li>
+                        <li><a href="privacy_policy.php">Security & Privacy Policy</a></li>
+                        <li><a href="terms_of_use.php">Terms of Use</a></li>
                     </ul>
                 </div>
         

@@ -5,6 +5,14 @@
         <link rel="icon" href="images/PlanCraft Logo1.png" type="icon">
         <script src="script.js?v=<?php echo filemtime('script.js'); ?>"></script>
         <title>Sign Up</title>
+        <?php
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            if (isset($_SESSION['user'])) {
+                header("Location: index.php");
+            }
+        ?>
     </head>
     <body>
         <header id="header_part">
@@ -17,9 +25,6 @@
             <div id="s_header">
                 <a class="eventbtn big-screen-btn" href="events.php">Explore Events</a>
                 <?php
-                    if (session_status() == PHP_SESSION_NONE) {
-                        session_start();
-                    }
                     if (!isset($_SESSION['user'])) {
                         echo '
                             <a class="eventbtn big-screen-btn" href="login.php">Create Your Own Event</a>
@@ -93,9 +98,7 @@
                 <button disabled id="submit" type="submit" class="btn">Create Account</button>
 
                 <?php
-                    if (isset($_SESSION['user'])) {
-                        header("Location: index.php");
-                    } else if (isset($_GET['username']) && isset($_GET['email']) && isset($_GET['pwd']) && isset($_GET['first'])) {
+                    if (isset($_GET['username']) && isset($_GET['email']) && isset($_GET['pwd']) && isset($_GET['first'])) {
                         $username = strtolower($_GET['username']);
                         $email = $_GET['email'];
                         $password = $_GET['pwd'];
@@ -150,6 +153,8 @@
                     <h3>Resources</h3>
                     <ul>
                         <li><a href="holidays.php">Jordan's Public Holidays</a></li>
+                        <li><a href="privacy_policy.php">Security & Privacy Policy</a></li>
+                        <li><a href="terms_of_use.php">Terms of Use</a></li>
                     </ul>
                 </div>
         

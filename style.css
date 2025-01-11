@@ -61,7 +61,7 @@
 }
 
 #link-logo {
-    width: 10%;
+    width: 7%;
 }
 
 #pf-img {
@@ -639,7 +639,7 @@ footer {
     flex-direction: column;
     justify-content: center;
     box-sizing: border-box;
-    background: linear-gradient(to left, #556B2F, rgba(0, 0, 0, 0.3)); /* Gradient transition */
+    background: linear-gradient(to left, #556B2F, rgba(0, 0, 0, 0.3));
 }
 
 .profile-info {
@@ -783,4 +783,59 @@ th {
 
 tbody tr:hover {
     background-color: #f9f9f9;
+}
+
+#privacy-policy {
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#privacy-policy h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#privacy-policy h2 {
+    font-size: 1.8em;
+    margin-top: 30px;
+}
+
+#privacy-policy p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+#privacy-policy ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+#privacy-policy ul li {
+    margin-bottom: 10px;
+}
+
+#terms-of-use {
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#terms-of-use h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#terms-of-use h2 {
+    font-size: 1.8em;
+    margin-top: 30px;
+}
+
+#terms-of-use p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
 }
