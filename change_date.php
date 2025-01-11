@@ -31,7 +31,7 @@
         if ($user_id != $event['host_id']) {
             header("Location: login.php");
         } else {
-            if (time() >= strtotime($event['date'])) {
+            if (time() <= strtotime($new)) {
                 $sql = "UPDATE events SET date = '$new' WHERE ID = '$event_id'";
                 if ($conn->query($sql) === TRUE) {
                     header("Location: event.php?id=" . $event_id);

@@ -750,67 +750,6 @@ footer {
     text-align: center;
 }
 
-/* ----------------------------- */
-
-#terms-of-use {
-    padding: 40px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-#terms-of-use h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-#terms-of-use h2 {
-    font-size: 1.8em;
-    margin-top: 30px;
-}
-
-#terms-of-use p {
-    font-size: 1.1em;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-/* ----------------------------- */
-
-#privacy-policy {
-    padding: 40px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-#privacy-policy h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-#privacy-policy h2 {
-    font-size: 1.8em;
-    margin-top: 30px;
-}
-
-#privacy-policy p {
-    font-size: 1.1em;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-#privacy-policy ul {
-    list-style-type: disc;
-    padding-left: 20px;
-}
-
-#privacy-policy ul li {
-    margin-bottom: 10px;
-}
-
-/* ----------------------------- */
-
 #public-holidays {
     padding: 40px;
     max-width: 800px;

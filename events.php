@@ -76,10 +76,10 @@
                     while ($row = $result->fetch_assoc()) {
                         
                         $host_id = $row['host_id'];
-                        $sqlusers = "SELECT username FROM credentials WHERE ID = '$host_id'";
+                        $sqlusers = "SELECT * FROM credentials WHERE ID = '$host_id'";
                         $resultusers = $conn->query($sqlusers);
                         $host = $resultusers->fetch_assoc();
-                        $host_name = $host['username'];
+                        $host_name = $host['first_name'] . ' ' . $host['last_name'];
 
                         $image = "";
                         if ($row['img'] != NULL && $row['img'] != "") {

@@ -78,7 +78,8 @@
         </header>
 
         <div class="profile-box">
-                <p class="profile-info">Contact <?php echo $user['first_name'] . ' ' . $user['last_name'] . ': ' . $user['email'] ?></p>
+                <p class="profile-info">Name: <?php echo $user['first_name'] . ' ' . $user['last_name'] ?></p>
+                <p class="profile-info">Contact <?php echo $user['first_name'] . ': ' . $user['email'] ?></p>
                 <h1> Events hosted by <?php echo $user['first_name'] ?></h1>
             <div class="events-grid-profile">
                 <?php

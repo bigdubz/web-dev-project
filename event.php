@@ -31,7 +31,7 @@
                 die("404 event not found");
             }
             $host_id = $event['host_id'];
-            $sql = "SELECT username FROM credentials WHERE ID = '$host_id'";
+            $sql = "SELECT * FROM credentials WHERE ID = '$host_id'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 $user = $result->fetch_assoc();
@@ -119,7 +119,7 @@
                 <p>
                     <strong>Host:</strong> 
                     <button class="host-button" onclick="window.location.href='profile.php?id=<?php echo $host_id ?>';">
-                        <?php echo $user['username']?>
+                        <?php echo $user['first_name'] . ' ' . $user['last_name'] ?>
                     </button>
                 </p>
                 <p>
