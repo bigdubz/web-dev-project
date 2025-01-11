@@ -51,34 +51,45 @@
             </div>
 
             <div id="s_header">
-                <a href="events.php" class="eventbtn">Explore Events</a>
+                <a class="eventbtn big-screen-btn" href="events.php">Explore Events</a>
                 <?php
+                    if (session_status() == PHP_SESSION_NONE) {
+                        session_start();
+                    }
                     if (!isset($_SESSION['user'])) {
                         echo '
-                            <a href="login.php" class="eventbtn">Create Your Own Event</a>
-                            <a href="login.php" class="eventbtn">Log In</a>
-                            <a href="signup.php" class="eventbtn">Sign Up</a>
+                            <a class="eventbtn big-screen-btn" href="login.php">Create Your Own Event</a>
+                            <a class="eventbtn big-screen-btn" href="login.php">Log In</a>
+                            <a class="eventbtn big-screen-btn" href="signup.php">Sign Up</a>
                         ';
                     } else {
                             echo '
-                                <a class="eventbtn" href="create_event.php">Create Your Own Event</a>
-                                <a id="link-logo" class="link-wrapper" href="user_profile.php">
-                                    <img id="pf-img" src="images/profile.png">
+                                <a class="eventbtn big-screen-btn" href="create_event.php">Create Your Own Event</a>
+                                <a id="link-logo" class="link-wrapper big-screen-btn" href="user_profile.php">
+                                    <img id="pf-img" src="images/profile.png" alt="Profile Image">
                                 </a>
                             ';
                     }
-
                 ?>
                 <nav class="nav_class">
                     <div class="dropdown">
-                        <img class="menu-icon" src="images/Menu Image.png" alt="Menu Icon" width="50"/>
+                        <img class="menu-icon" src="images/Menu Image.png" alt="Menu Icon" width="50">
                         <div class="dropdown-content">
+                            <a href="index.php">Home</a>
                             <a href="events.php">Events</a>
-                            <a href="index.php">Homepage</a>
                             <a href="holidays.php">Jordan's holidays</a>
                             <?php
                                 if (isset($_SESSION['user'])) {
-                                    echo '<a href="logout.php">Log out</a>';
+                                    echo '
+                                        <a href="user_profile.php">My profile</a>
+                                        <a href="create_event.php">Create event</a>
+                                        <a href="logout.php">Log out</a>
+                                    ';
+                                } else {
+                                    echo '
+                                        <a href="login.php">Log in</a>
+                                        <a href="signup.php">Sign up</a>
+                                    ';
                                 }
                             ?>
                         </div>
@@ -259,10 +270,7 @@
                 <div class="footer-section">
                     <h3>Resources</h3>
                     <ul>
-                        <li><a href="#">Jordan's Public Holidays</a></li>
-                        <li><a href="#">Security & Privacy Policy</a></li>
-                        <li><a href="#">Feedback</a></li>
-                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="holidays.php">Jordan's Public Holidays</a></li>
                     </ul>
                 </div>
         

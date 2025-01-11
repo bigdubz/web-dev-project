@@ -8,9 +8,7 @@
 }
 
 .logo {
-    display: flex;
-    align-items: center;
-    width: 25%;
+    width: 450px;
 }
 
 .logo-img-header {
@@ -59,6 +57,7 @@
 
 .nav_class {
     position: relative; 
+    justify-content: center;
 }
 
 #link-logo {
@@ -701,6 +700,10 @@ footer {
 
     .event-page-title {
         font-size: 1.8em;
+    }
+
+    .big-screen-btn {
+        display: none;
     }
 }
 
